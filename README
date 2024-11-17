@@ -1,0 +1,226 @@
+API REST para Manipulação de Banco de Dados Notion
+Este projeto é uma API REST desenvolvida com Node.js e TypeScript que interage com o banco de dados do Notion. Ela permite criar, atualizar, listar, buscar e excluir registros em um banco de dados específico do Notion.
+
+📋 Funcionalidades
+Criar registros: Adiciona novos registros ao banco de dados do Notion.
+Buscar registros por número no campo ID: Retorna registros com base no número fornecido.
+Listar registros: Retorna todos os registros no banco de dados.
+Atualizar registros por número: Atualiza propriedades específicas de um registro identificado pelo número no campo ID.
+Excluir registros por número: Arquiva (deleta logicamente) registros no banco de dados com base no número fornecido.
+🛠️ Requisitos
+Softwares Necessários
+Node.js (v16+ recomendado)
+Visual Studio Code (VS Code)
+Postman ou extensão REST Client no VS Code para testes.
+📁 Dependências do Projeto
+Pacote	Descrição
+@notionhq/client	Cliente oficial da API do Notion para interagir com o banco de dados.
+express	Framework web para criar rotas e gerenciar requisições/respostas.
+dotenv	Gerenciamento de variáveis de ambiente.
+body-parser	Análise de dados enviados no corpo das requisições.
+nodemon	Ferramenta para reiniciar automaticamente o servidor em modo de desenvolvimento.
+
+🖥️ Ambiente de Trabalho
+Este projeto foi desenvolvido em um ambiente configurado da seguinte forma:
+
+⚙️ Configuração do Sistema
+Sistema Operacional: Windows 10/11
+WSL (Windows Subsystem for Linux):
+Distribuição Linux: Ubuntu 20.04
+Configurado para integrar as ferramentas do Linux diretamente no ambiente Windows.
+🖊️ Editor de Texto/IDE
+Visual Studio Code:
+Extensões Recomendadas:
+ESLint: Para análise estática do código e boas práticas.
+Prettier: Para formatação de código.
+REST Client (opcional): Para testar endpoints REST diretamente no editor.
+📦 Dependências/Bibliotecas
+Node.js: Gerenciador de pacotes npm e execução de código JavaScript/TypeScript.
+Versão Utilizada: 16+
+TypeScript: Superset de JavaScript para tipagem estática e melhores práticas.
+Versão Utilizada: 4.0+
+Express: Framework para criar e gerenciar APIs REST.
+@notionhq/client: Cliente oficial para interagir com a API do Notion.
+dotenv: Gerenciamento de variáveis de ambiente.
+body-parser: Análise do corpo das requisições HTTP.
+nodemon (modo desenvolvimento): Reinicia o servidor automaticamente ao detectar alterações no código.
+💻 Configuração de Ambiente
+WSL:
+
+Instale a distribuição Linux no Windows.
+Atualize o WSL para a versão 2.
+Configure o ambiente no Visual Studio Code com a extensão Remote - WSL.
+Node.js no WSL:
+
+Instale o Node.js diretamente no ambiente Linux:
+bash
+Copy code
+sudo apt update
+sudo apt install -y nodejs npm
+Verifique as versões:
+bash
+Copy code
+node -v
+npm -v
+Instalação de Dependências:
+
+Execute:
+bash
+Copy code
+npm install
+🌐 Testes
+Os endpoints da API foram testados com o Postman e também podem ser testados usando a extensão REST Client no Visual Studio Code.
+
+🚀 Instalação
+1. Clone o Repositório
+bash
+Copy code
+git clone <URL_DO_REPOSITORIO>
+cd <NOME_DA_PASTA_DO_PROJETO>
+2. Instale as Dependências
+Certifique-se de estar na pasta raiz do projeto e execute:
+
+bash
+Copy code
+npm install
+3. Configure o Ambiente
+Crie um arquivo .env na raiz do projeto e insira as seguintes variáveis:
+
+env
+Copy code
+NOTION_API_KEY=ntn_O35402416574dg7rojwpyRwVPcKnWaiyIfqPeySBshC7pS
+NOTION_DATABASE_ID=1290d303ccf9808d8697f7a3dc42ef3f
+PORT=3000
+NOTION_API_KEY: Chave de API do Notion.
+NOTION_DATABASE_ID: ID do banco de dados que será manipulado.
+PORT: Porta onde o servidor será executado (padrão: 3000).
+📌 Executando o Projeto
+Modo Desenvolvimento
+Para executar o servidor com reinicialização automática:
+
+bash
+Copy code
+npm run dev
+Modo Produção
+Para rodar a aplicação em produção:
+
+bash
+Copy code
+npm start
+🧪 Testando a API
+Coleção de Endpoints
+Método	Rota	Descrição
+GET	/records	Lista todos os registros do banco de dados.
+POST	/records	Cria um novo registro.
+GET	/records/:id	Busca um registro pelo UUID.
+PUT	/records/:id	Atualiza propriedades de um registro pelo número no campo ID.
+DELETE	/records/:id	Exclui (arquiva) um registro pelo número no campo ID.
+GET	/records/search/:number	Busca um registro pelo número no campo ID.
+Exemplos de Requisições
+1. Criar um Registro
+Endpoint: POST /records
+Exemplo do Corpo (JSON):
+json
+Copy code
+{
+  "ID": 123,
+  "Company": "Minha Empresa",
+  "Content": "Exemplo de conteúdo",
+  "Description": "Descrição detalhada",
+  "PlannedDate": "2024-11-15"
+}
+2. Atualizar um Registro
+Endpoint: PUT /records/:id
+Exemplo do Corpo (JSON):
+json
+Copy code
+{
+  "properties": {
+    "Company": {
+      "title": [
+        {
+          "text": {
+            "content": "Updated Company Name"
+          }
+        }
+      ]
+    },
+    "Description": {
+      "rich_text": [
+        {
+          "text": {
+            "content": "Updated description"
+          }
+        }
+      ]
+    }
+  }
+}
+3. Excluir um Registro
+Endpoint: DELETE /records/:id
+🌐 Testando com Postman
+Abra o Postman.
+Crie uma nova coleção e adicione os endpoints acima.
+Configure o cabeçalho:
+Content-Type: application/json
+Faça as requisições e visualize os resultados.
+📋 Estrutura do Projeto
+plaintext
+Copy code
+/
+├── src/
+│   ├── config/
+│   │   └── notionConfig.ts     # Configuração da API do Notion
+│   ├── controllers/
+│   │   └── notionController.ts # Controladores para gerenciar lógica dos endpoints
+│   ├── routes/
+│   │   └── notionRoutes.ts     # Rotas da API
+│   ├── services/
+│   │   └── notionService.ts    # Funções de interação com a API do Notion
+│   └── app.ts                  # Configuração do servidor Express
+├── .env                        # Variáveis de ambiente (não versionado)
+├── .gitignore                  # Arquivos a serem ignorados no controle de versão
+├── package.json                # Dependências e scripts do projeto
+├── tsconfig.json               # Configurações do TypeScript
+└── README.md                   # Documentação do projeto
+🛡️ Boas Práticas
+Linting:
+
+Para verificar o código:
+bash
+Copy code
+npm run lint
+Testes:
+
+Para rodar testes:
+bash
+Copy code
+npm test
+💡 Dicas
+Extensões Recomendadas no VS Code:
+
+Prettier: Para formatar o código automaticamente.
+ESLint: Para seguir boas práticas de desenvolvimento.
+REST Client: Para testar os endpoints diretamente do editor.
+Logando Erros:
+
+Use console.log ou console.error para depurar erros no terminal.
+Reinicialização Automática:
+
+Use o nodemon para evitar reiniciar manualmente o servidor durante o desenvolvimento:
+bash
+Copy code
+npm run dev
+📤 Deploy
+Enviar para o GitHub
+Inicialize o repositório (caso não tenha feito isso):
+
+bash
+Copy code
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin <URL_DO_REPOSITORIO>
+git push -u origin main
+Verifique no GitHub se o código foi enviado corretamente.
